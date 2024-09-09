@@ -156,11 +156,6 @@ HISTSIZE=1000
 SAVEHIST=2000
 
 # Manual aliases
-alias ll='/usr/bin/lsd -lh --group-dirs=first'
-alias la='/usr/bin/lsd -a --group-dirs=first'
-alias l='/usr/bin/lsd --group-dirs=first'
-alias lla='/usr/bin/lsd -lha --group-dirs=first'
-alias ls='/usr/bin/lsd --group-dirs=first'
 alias cat='/usr/bin/batcat'
 alias catn='/usr/bin/cat'
 alias catnl='/usr/bin/batcat --paging=never'

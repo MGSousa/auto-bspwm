@@ -29,12 +29,6 @@ elif [[ "$1" == "--system" ]]; then
 	polybar -q primary -c $DIR/system.ini &
 	polybar -q secondary -c $DIR/system.ini &
 
-## Mpd
-elif [[ "$1" == "--mpd" ]]; then
-	kill_bar
-	polybar -q primary -c $DIR/mpd.ini &
-	polybar -q secondary -c $DIR/mpd.ini &
-
 ## Workspaces
 elif [[ "$1" == "--ws" ]]; then
 	kill_bar

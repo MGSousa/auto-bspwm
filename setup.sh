@@ -33,7 +33,7 @@ function banner(){
 	sleep 0.05
 	echo -e "/ /_/ // /_/ // /_ / /_/ /     _  /_/ /(__  )__  /_/ /_ |/ |/ /_  / / / / /"
 	sleep 0.05
-	echo -e "\__,_/ \__,_/ \__/ \____/      /_.___//____/ _  .___/____/|__/ /_/ /_/ /_/    ${endColour}${yellowColour}(${endColour}${grayColour}By ${endColour}${purpleColour}@r1vs3c${endColour}${yellowColour})${endColour}${turquoiseColour}"
+	echo -e "\__,_/ \__,_/ \__/ \____/      /_.___//____/ _  .___/____/|__/ /_/ /_/ /_/    ${endColour}${yellowColour}(${endColour}${grayColour}By ${endColour}${purpleColour}@msousa${endColour}${yellowColour})${endColour}${turquoiseColour}"
 	sleep 0.05
     	echo -e "                                             /_/${endColour}"
 }
@@ -47,7 +47,7 @@ else
 	sleep 1
 	echo -e "\n\n${blueColour}[*] Installing necessary packages for the environment...\n${endColour}"
 	sleep 2
-	sudo apt install -y kitty rofi feh xclip ranger i3lock-fancy scrot scrub wmname imagemagick cmatrix htop neofetch python3-pip procps tty-clock fzf lsd bat pamixer flameshot
+	sudo apt install -y git curl net-tools zsh figlet kitty rofi feh xclip ranger i3lock-fancy scrot scrub wmname imagemagick cmatrix htop neofetch python3-pip procps tty-clock fzf bat flameshot
 	if [ $? != 0 ] && [ $? != 130 ]; then
 		echo -e "\n${redColour}[-] Failed to install some packages!\n${endColour}"
 		exit 1
@@ -61,7 +61,7 @@ else
 
 	echo -e "\n${purpleColour}[*] Installing necessary dependencies for bspwm...\n${endColour}"
 	sleep 2
-	sudo apt install -y build-essential git vim libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev libuv1-dev
+	sudo apt install -y build-essential vim libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev libuv1-dev
 	if [ $? != 0 ] && [ $? != 130 ]; then
 		echo -e "\n${redColour}[-] Failed to install some dependencies for bspwm!\n${endColour}"
 		exit 1
@@ -72,7 +72,7 @@ else
 
 	echo -e "\n${purpleColour}[*] Installing necessary dependencies for polybar...\n${endColour}"
 	sleep 2
-	sudo apt install -y cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev
+	sudo apt install -y cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev libjsoncpp-dev libcurl4-openssl-dev libnl-genl-3-dev
 	if [ $? != 0 ] && [ $? != 130 ]; then
 		echo -e "\n${redColour}[-] Failed to install some dependencies for polybar!\n${endColour}"
 		exit 1
@@ -242,10 +242,8 @@ else
 	echo -e "\n${purpleColour}[*] Configuring necessary permissions and symbolic links...\n${endColour}"
 	sleep 2
 	chmod -R +x ~/.config/bspwm/
-	chmod +x ~/.config/polybar/launch.sh
-	chmod +x ~/.config/polybar/shapes/scripts/*
-	sudo chmod +x /usr/local/bin/whichSystem.py
-	sudo chmod +x /usr/local/share/zsh/site-functions/_bspc
+	chmod +x ~/.config/polybar/launch.sh ~/.config/polybar/shapes/scripts/*
+	sudo chmod +x /usr/local/bin/whichSystem.py /usr/local/share/zsh/site-functions/_bspc
 	sudo chown root:root /usr/local/share/zsh/site-functions/_bspc
 	sudo mkdir -p /root/.config/polybar/shapes/scripts/
 	sudo touch /root/.config/polybar/shapes/scripts/target
@@ -254,12 +252,16 @@ else
 	echo -e "\n${greenColour}[+] Done\n${endColour}"
 	sleep 1.5
 
-	echo -e "\n${purpleColour}[*] Removing repository and tools directory...\n${endColour}"
+	echo -e "\n${purpleColour}[*] Removing tools directory...\n${endColour}"
 	sleep 2
 	rm -rfv ~/tools
-	rm -rfv $dir
+	
 	echo -e "\n${greenColour}[+] Done\n${endColour}"
 	sleep 1.5
+
+	echo -e "\n${purpleColour}[*] Running Post installation scripts \n${endColour}"
+	$dir/scripts/determine_interface.sh
+	sleep 2
 
 	echo -e "\n${greenColour}[+] Environment configured :D\n${endColour}"
 	sleep 1.5

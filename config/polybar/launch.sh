@@ -15,10 +15,13 @@ launch_bar() {
 		polybar -q top -c "$dir/$style/config.ini" &
 		polybar -q bottom -c "$dir/$style/config.ini" &
 	elif [[ "$style" == "pwidgets" ]]; then
-		bash "$dir"/pwidgets/launch.sh --main
+		set -x
+		bash "$dir"/pwidgets/launch.sh --main &
 	else
+		set -x
 		polybar -q main -c "$dir/$style/config.ini" &	
 	fi
+	disown
 }
 
 if [[ "$1" == "--material" ]]; then
